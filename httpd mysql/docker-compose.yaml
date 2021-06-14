@@ -1,0 +1,24 @@
+#version: '2' # optional since v1.27.0
+
+services:    
+    php:
+        build:
+         context: /home/manan/Experiment/Codetut/httpd mysql/Dockerfiles/httpd/
+         dockerfile: Dockerfile       
+        ports:
+          - 192.168.8.101:6773:80        
+        volumes:
+          - /home/manan/Experiment/Codetut/httpd mysql/httpd:/var/www/html        
+        
+    db:
+        build:
+         context: /home/manan/Experiment/Codetut/httpd mysql/Dockerfiles/mysql/
+         dockerfile: Dockerfile 
+        environment:
+          MYSQL_DATABASE: apache
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: mananx22
+          MYSQL_ROOT_PASSWORD: 'manan'             
+        volumes:
+          - /home/manan/Experiment/Codetut/httpd mysql/mysql:/var/lib/mysql
+
