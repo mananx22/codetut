@@ -1,0 +1,37 @@
+# optional since v1.27.0
+
+version: '3' 
+
+services:    
+    php:
+        
+        build:
+         context: $PWD/Dockerfiles/httpd/
+         dockerfile: Dockerfile    
+       # command:  bash -c "service apache2 restart" 
+       # the dockerfile install commands were not picked up by compose, so mentioned here
+        ports:
+          - 192.168.8.101:6773:80        
+        volumes:
+          - $PWD/volumes/httpd/website:/var/www/html
+         
+        
+    db:
+        build: 
+         context: $PWD/Dockerfiles/mysql/
+         dockerfile: Dockerfile 
+        environment:
+          MYSQL_DATABASE: apache
+          MYSQL_USER: admin
+          MYSQL_PASSWORD: mananx22
+          MYSQL_ROOT_PASSWORD: 'manan'             
+        volumes:
+           - $PWD/volumes/mysql:/var/lib/mysql
+         
+    phpmyadmin:
+        image: phpmyadmin
+        ports:
+         - 192.168.8.101:9999:80
+        environment:
+         - PMA_ARBITRARY=1
+
