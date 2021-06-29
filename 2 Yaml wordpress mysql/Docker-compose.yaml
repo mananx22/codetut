@@ -1,11 +1,9 @@
 
 version: '3'
 
-    services:
-
+services:
         wordpress: 
-            image: wordpress:latest
-            restart: always
+            image: wordpress:latest            
             ports:
                 - 192.168.8.101:1995:80 
             environment:
@@ -15,11 +13,9 @@ version: '3'
                 WORDPRESS_DB_NAME: wordpress
             volumes:
                 - wordpress_data2:/var/www/html
-                - /tmp/wordpress/wordpress.ini:/usr/local/etc/php/conf.d/wordpress.ini      
-                - /tmp/wordpress/duplicator-pro:/var/www/html/wp-content/plugins/duplicator-pro
+                
         db:
-            image: mysql:5.7
-            restart: always
+            image: mysql:5.7            
             environment:
                 MYSQL_DATABASE: wordpress
                 MYSQL_USER: admin
@@ -28,8 +24,11 @@ version: '3'
             volumes:
                 - mysql_data:/var/lib/mysql
 
-        volumes:
-        wordpress_data2: 
-        mysql_data:
+volumes:
+  wordpress_data2: 
+  mysql_data:
 
-# Remember, this docker compose doesnt affect mysql root password in any way, even after wordpress backup has been restored. the root password remains what we have entered inm docker compose
+# Remember, this docker compose doesnt affect mysql root password in any way
+# even after wordpress backup has been restored. the root password remains what we have entered inm docker compose
+
+# volumes & services are indent at same
