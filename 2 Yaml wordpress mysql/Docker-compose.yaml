@@ -23,6 +23,13 @@ services:
                 MYSQL_ROOT_PASSWORD: 'manan'      
             volumes:
                 - mysql_data:/var/lib/mysql
+        
+        phpmyadmin:
+            image: phpmyadmin
+            ports:
+             - 192.168.8.101:9999:80
+            environment:
+             - PMA_ARBITRARY=1
 
 volumes:
   wordpress_data2: 
