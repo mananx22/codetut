@@ -1,0 +1,24 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nginx-srv
+     # this connect to service
+    labels:
+      app: nginx-srv       
+  spec: 
+    replicas: 2
+    selector:
+      matchLabels:
+        app: nginx-srv
+    template:
+      metadata:
+        labels:
+          app: nginx-srv
+      spec:
+        containers:
+        - name: nginx
+          image: nginx:1.16
+          ports:
+          - containerPort: 8080
+      
+
