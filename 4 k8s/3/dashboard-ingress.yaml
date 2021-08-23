@@ -1,0 +1,38 @@
+ # Video 107 NANA
+
+  # 1) sudo minikube dashboard --url=false
+  # 1.1) minikube addons enable ingress
+  # 2) kubectl get ns
+  # 3) kubectl get all -n kubernetes-dashboard
+
+
+  # now this yaml is written to access the internally running k8s dashboard through url
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard-ingress 
+
+    # from kubectl get ns 
+  namespace: kubernetes-dashboard    
+
+spec:
+  rules:
+  - host: dashboard.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubernetes-dashboard
+            port:
+              number: 80
+
+# check it's working with "kubectl get ingress -n kubernetes-dashboard --watch"
+# now map the address obtained to dashboard.com in /etc/hosts
+
+
+
+
+
